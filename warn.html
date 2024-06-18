@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yes or No Game</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .game-container {
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #no-button {
+            position: relative;
+        }
+
+        #congratulations {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #congratulations img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        #restart-button {
+            display: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>DO YOU LIKE THIS GAME?</h1>
+        <p>Warning: Play on dim Sound</p>
+        <button id="yes-button">Yes</button>
+        <button id="no-button">No</button>
+        <div id="congratulations">
+            <h2>CONGRATULATION! MF</h2>
+            <p> Dev:Adi</p>
+            <img id="random-image" src="" alt="Random Image">
+        </div>
+        <button id="restart-button">Restart</button>
+        <!-- Preload all audio files -->
+        <audio id="congratulations-audio-1" src="a.mp3"></audio>
+        <audio id="congratulations-audio-2" src="b.mp3"></audio>
+        <audio id="congratulations-audio-3" src="c.mp3"></audio>
+        <audio id="congratulations-audio-4" src="d.mp3"></audio>
+        <audio id="congratulations-audio-5" src="e.mp3"></audio>
+        <audio id="congratulations-audio-6" src="f.mp3"></audio>
+        <audio id="congratulations-audio-7" src="g.mp3"></audio>
+        <audio id="congratulations-audio-8" src="h.mp3"></audio>
+        <audio id="congratulations-audio-9" src="i.mp3"></audio>
+        <audio id="congratulations-audio-10" src="j.mp3"></audio>
+    </div>
+    <script>
+        const noButton = document.getElementById('no-button');
+        const yesButton = document.getElementById('yes-button');
+        const congratulations = document.getElementById('congratulations');
+        const randomImage = document.getElementById('random-image');
+        const restartButton = document.getElementById('restart-button');
+
+        // Array of random image URLs
+        const images = [
+            'a.jpg?text=Image+1',
+            'b.jpg?text=Image+2',
+            'c.jpg?text=Image+3',
+            'd.jpg?text=Image+4',
+            'e.jpg?text=Image+5',
+            'f.gif?text=Image+6',
+            'g.jpg?text=Image+7',
+            'h.jpg?text=Image+8',
+
+            'i.jpg?text=Image+9',
+            'j.jpg?text=Image+10'
+        ];
+
+        // Array of corresponding audio elements
+        const audios = [
+            document.getElementById('congratulations-audio-1'),
+            document.getElementById('congratulations-audio-2'),
+            document.getElementById('congratulations-audio-3'),
+            document.getElementById('congratulations-audio-4'),
+            document.getElementById('congratulations-audio-5'),
+            document.getElementById('congratulations-audio-6'),
+            document.getElementById('congratulations-audio-7'),
+            document.getElementById('congratulations-audio-8'),
+            document.getElementById('congratulations-audio-9'),
+            document.getElementById('congratulations-audio-10')
+        ];
+
+        noButton.addEventListener('mouseover', () => {
+            // Generate random position within the viewport
+            const randomX = Math.random() * (window.innerWidth - noButton.clientWidth);
+            const randomY = Math.random() * (window.innerHeight - noButton.clientHeight);
+
+            // Set the new position
+            noButton.style.position = 'absolute';
+            noButton.style.left = `${randomX}px`;
+            noButton.style.top = `${randomY}px`;
+        });
+
+        yesButton.addEventListener('click', () => {
+            // Select a random index
+            const randomIndex = Math.floor(Math.random() * images.length);
+
+            // Display the congratulatory message and image
+            congratulations.style.display = 'block';
+            randomImage.src = images[randomIndex];
+
+            // Play the corresponding audio
+            audios[randomIndex].play();
+
+            // Hide the Yes and No buttons
+            yesButton.style.display = 'none';
+            noButton.style.display = 'none';
+
+            // Show the Restart button
+            restartButton.style.display = 'inline-block';
+        });
+
+        restartButton.addEventListener('click', () => {
+            // Hide the congratulatory message and restart button
+            congratulations.style.display = 'none';
+            restartButton.style.display = 'none';
+
+            // Show the Yes and No buttons
+            yesButton.style.display = 'inline-block';
+            noButton.style.display = 'inline-block';
+
+            // Stop all playing audios
+            audios.forEach(audio => {
+                audio.pause();
+                audio.currentTime = 0;
+            });
+        });
+    </script>
+</body>
+</html>
